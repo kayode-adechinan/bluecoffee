@@ -33,6 +33,7 @@ class Post(models.Model):
     like = models.IntegerField(null=True)
     rating = models.IntegerField(null=True)
     reporter = models.ForeignKey(Reporter, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
         rci = cloudinary.uploader.upload(self.picture)

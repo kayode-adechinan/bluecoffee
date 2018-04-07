@@ -5,14 +5,14 @@ from core.models import Reporter, Post,FileHandler
 class ReporterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reporter
-        fields = ['name', 'email', 'password', 'avatar', 'avatar_url']
+        fields = ['id','name', 'email', 'password', 'avatar', 'avatar_url']
         read_only_fields = ['avatar_url']
 
 
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = ['title', 'body', 'picture', 'video',
+        fields = ['id','title', 'body', 'picture', 'video',
         'like', 'rating', 'reporter', 'picture_url', 'video_url']
         read_only_fields = ['picture_url', 'video_url']
 
