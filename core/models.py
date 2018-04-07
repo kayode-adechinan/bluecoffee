@@ -14,9 +14,11 @@ class Reporter(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        rci = cloudinary.uploader.upload(self.avatar)
-        self.avatar_url = rci['url']
-        self.avatar = None
+
+        if self.avatar:
+            rci = cloudinary.uploader.upload(self.avatar)
+            self.avatar_url = rci['url']
+            self.avatar = None
 
         super().save(*args, **kwargs)
 
