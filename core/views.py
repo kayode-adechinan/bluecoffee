@@ -9,10 +9,14 @@ from django.db.models import Q
 
 from core.serializers import PostSerializer, ReporterSerializer, ApiResponseSerializer, FileHandlerSerializer
 from core.models import Post, Reporter, FileHandler
+from django.views.generic.edit import CreateView
+
+from django.forms.models import model_to_dict
+
 
 class FileHandlerView(generics.ListCreateAPIView):
     serializer_class = FileHandlerSerializer
-    queryset = FileHandler.objects.all() 
+    queryset = FileHandler.objects.all()
 
 
 
@@ -26,16 +30,6 @@ class ReporterViewDetail(generics.RetrieveUpdateDestroyAPIView):
 
 class ReporterAuthenticationView(views.APIView):
 
-    def auth(self, email, password):
-        reporter = Reporter.objects.get(Q(email__iexact=email),Q(password__iexact=password))
-
-        if not reporter:
-            serializer =  ApiResponseSerializer(data={'response':'', 'status':'error'})
-            return Response(serializer.data)
-
-        serializer =  ApiResponseSerializer(data={'response':reporter, 'status':'success'})
-        return Response(serializer.data)
-
     #def get_object(self, email):
         #try:
             #return User.objects.get(email=email)
@@ -45,16 +39,10 @@ class ReporterAuthenticationView(views.APIView):
     def post(self, request):
         serializer =  ReporterSerializer(data=request.data)
         if serializer.is_valid():
-            #reporter = Reporter.objects.get(Q(email__iexact=serializer.data['email']),Q(password__iexact=serializer.data['password']))
-            #if reporter:
-                #serializero =  ApiResponseSerializer(data={'status':'success'})
-                #if serializero.is_valid():
-                    #return Response({'klll':serializer.data['email']})
-                #return Response(serializero.data)
-            #return Response({'klll':'error'})
             try:
                 reporter = Reporter.objects.get(Q(email__iexact=serializer.data['email']),Q(password__iexact=serializer.data['password']))
-                return Response({'klll':'success'})
+                rs= ReporterSerializer(reporter)
+                return Response(rs.data)
             except Reporter.DoesNotExist:
                 return Response({'klll':'error'})
 
