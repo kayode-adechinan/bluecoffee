@@ -33,16 +33,27 @@ class Post(models.Model):
     like = models.IntegerField(null=True)
     rating = models.IntegerField(null=True)
     reporter = models.ForeignKey(Reporter, on_delete=models.CASCADE)
-    
+    star_color = models.CharField(max_length=255, null=True)
+    created = models.DateTimeField(auto_now_add=True, null=True)
+
+
+    @property
+    def date_formated(self):
+        return self.created.date();
 
     def save(self, *args, **kwargs):
-        rci = cloudinary.uploader.upload(self.picture)
-        self.picture_url = rci['url']
-        self.picture = None
 
-        rcv = cloudinary.uploader.upload(self.video, resource_type='video', format='mp4')
-        self.video_url = rcv['url']
-        self.video = None
+        if self.picture:
+            rci = cloudinary.uploader.upload(self.picture)
+            self.picture_url = rci['url']
+            self.picture = None
+
+        if self.video:
+            rcv = cloudinary.uploader.upload(self.video, resource_type='video', format='mp4')
+            self.video_url = rcv['url']
+            self.video = None
+
+
 
         super().save(*args, **kwargs)
 

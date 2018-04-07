@@ -10,11 +10,15 @@ class ReporterSerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
+
+    reporter_avatar = serializers.CharField(read_only=True, source="reporter.avatar_url")
+    reporter_name = serializers.CharField(read_only=True, source="reporter.name")
+
     class Meta:
         model = Post
         fields = ['id','title', 'body', 'picture', 'video',
-        'like', 'rating', 'reporter', 'picture_url', 'video_url']
-        read_only_fields = ['picture_url', 'video_url']
+        'like', 'rating', 'reporter', 'picture_url', 'video_url', 'reporter_name', 'reporter_avatar', 'date_formated', 'star_color']
+        read_only_fields = ['picture_url', 'video_url', 'date_formated']
 
 
 class ApiResponseSerializer(serializers.Serializer):
