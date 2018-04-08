@@ -11,7 +11,7 @@ from core.serializers import PostSerializer, ReporterSerializer
 from core.models import Post, Reporter
 from django.views.generic.edit import CreateView
 from core.helpers import generate_user_password, send_password_reset_mail
-
+from django.http import Http404
 
 
 
