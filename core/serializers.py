@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from core.models import Reporter, Post,FileHandler
+from core.models import Reporter, Post
 
 
 class ReporterSerializer(serializers.ModelSerializer):
@@ -19,13 +19,3 @@ class PostSerializer(serializers.ModelSerializer):
         fields = ['id','title', 'body', 'picture', 'video',
         'like', 'rating', 'reporter', 'picture_url', 'video_url', 'reporter_name', 'reporter_avatar', 'date_formated', 'star_color']
         read_only_fields = ['picture_url', 'video_url', 'date_formated']
-
-
-class ApiResponseSerializer(serializers.Serializer):
-    response = serializers.DictField()
-    status = serializers.CharField()
-
-class FileHandlerSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = FileHandler
-        fields = ['picture', 'video']

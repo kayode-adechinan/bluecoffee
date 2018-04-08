@@ -9,6 +9,5 @@ urlpatterns = [
     path('reporters/password-reset/<str:email>/', views.ReporterPasswordReset.as_view()),
     path('posts/', views.PostView.as_view()),
     path('posts/<int:pk>/', views.PostViewDetail.as_view()),
-    path('posts/search/', views.PostSearchView.as_view()),
-    path('files/', views.FileHandlerView.as_view())
+    path('posts/search/', views.PostSearchView.as_view())
 ]

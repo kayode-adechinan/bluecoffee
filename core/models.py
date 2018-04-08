@@ -56,8 +56,3 @@ class Post(models.Model):
 
 
         super().save(*args, **kwargs)
-
-
-class FileHandler(models.Model):
-    picture = models.ImageField(upload_to='pictures/', null=True)
-    video = models.FileField(upload_to='videos/', null=True)
