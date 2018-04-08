@@ -1,14 +1,15 @@
 # sendgrid tutorial
 import sendgrid
-from sendgrid.helpers.mail import *
+
 import string
 import random
 
+import os
+from sendgrid.helpers.mail import *
+
 
 def send_password_reset_mail(email, password):
-    API_KEY = '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'
-    # create a client
-    sg = sendgrid.SendGridAPIClient(apikey=API_KEY)
+    sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
     # setting up  sender
     from_email = Email("cryts@lab.com")
     # setting up recipiender
