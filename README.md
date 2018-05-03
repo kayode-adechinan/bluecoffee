@@ -1,7 +1,7 @@
 # bluecoffee
 # SOCIAL REST API FOR COMMENTS AND OTHER GOODIES
 
-# TECHNO
+# TECHNOS
 
 * Django 2
 * Heroku
